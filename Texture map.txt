@@ -1,0 +1,1 @@
+Cube all_cubes[] = { cube_grass , cube_coffee , cube_pillar, cube_table, cube_tiles, cube_wood, cube_tent_wall, cube_pool, cube_door };
