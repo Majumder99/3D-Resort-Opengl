@@ -1434,7 +1434,7 @@ int main()
 		wine_glass1.scale = glm::vec3(0.25f, 0.3f, 0.25f);
 		wine_glass1.hollowBezier(wine_glass, (sizeof(wine_glass) / sizeof(wine_glass[0])) / 3 - 1, lightingShader);
 
-		// fountain dotdot
+		// niche namteche
 		float dy = 0.0; 
 		float poredx = 0.0;
 		float poredx2 = 0.0;
@@ -1475,13 +1475,13 @@ int main()
 
 			}
 			else if (i == 40) {
-				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.715, 1.93, 5.0));
+				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.725, 1.35, 5.0));
 				color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				dotdot(lightingShader, translateMatrix, color1, all_cubes);
 
 			}
 			else {
-				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.715, 2.3 - dy + globalDotStep, 5.0));
+				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.725, 2.3 - dy + globalDotStep, 5.0));
 				color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				dotdot(lightingShader, translateMatrix, color1, all_cubes);
 			}

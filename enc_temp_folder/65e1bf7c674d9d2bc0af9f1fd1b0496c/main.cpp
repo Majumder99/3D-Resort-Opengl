@@ -1434,7 +1434,7 @@ int main()
 		wine_glass1.scale = glm::vec3(0.25f, 0.3f, 0.25f);
 		wine_glass1.hollowBezier(wine_glass, (sizeof(wine_glass) / sizeof(wine_glass[0])) / 3 - 1, lightingShader);
 
-		// fountain dotdot
+		// niche namteche
 		float dy = 0.0; 
 		float poredx = 0.0;
 		float poredx2 = 0.0;
