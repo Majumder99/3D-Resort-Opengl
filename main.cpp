@@ -618,47 +618,66 @@ int main()
 	unsigned int diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 	unsigned int specMap = loadTexture(specularMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
-	diffuseMapPath = "new_grass.jpg";
-	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_grass = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+	diffuseMapPath = "floor_texture.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_floor_texture = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
 
-	diffuseMapPath = "green-coffee.jpg";
-	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_coffee = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+	diffuseMapPath = "wall.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_wall = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
 
-	diffuseMapPath = "pillar.jpg";
+	diffuseMapPath = "resort.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_resort = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "pool_chair_body.jpg";
 	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_pillar = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+	Cube cube_pool_chair_body = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	diffuseMapPath = "pillow.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_pillow = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "mattress.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_mattress = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "cone.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_cone = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "bed_head.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_bed_head = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	diffuseMapPath = "road.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_road = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "table_top.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_table_top = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "tent_wall.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_tent_wall = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
 
 	diffuseMapPath = "table.jpg";
 	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 	Cube cube_table = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
 
-	//swimming_pool_tiles
-	diffuseMapPath = "tiles.jpg";
-	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_tiles = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
-
-	//tent_floor
+	// tent_floor
 	diffuseMapPath = "wood.jpg";
 	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 	Cube cube_wood = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
 
-	diffuseMapPath = "table_top.jpg";
-	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_table_top = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
-
-	diffuseMapPath = "tent_wall.jpg";
-	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_tent_wall = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
-
 	diffuseMapPath = "pool.jpg";
-	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_pool = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_pool = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
 
 	diffuseMapPath = "door.jpg";
-	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-	Cube cube_door = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR); 
+	Cube cube_door = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
 
 	diffuseMapPath = "door2.jpg";
 	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
@@ -667,13 +686,74 @@ int main()
 	diffuseMapPath = "soil.jpg";
 	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 	Cube cube_soil = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
-	//notun_texture
+
+	diffuseMapPath = "pool_wall.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_pool_wall = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	diffuseMapPath = "window.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_window = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "roof.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_tent_roof = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "floor_wood.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_tent_floor = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+
+	diffuseMapPath = "pillar.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_pillar = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	diffuseMapPath = "glass.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_glass = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	diffuseMapPath = "bed_wood.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_bed_wood = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	diffuseMapPath = "water.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_water = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	diffuseMapPath = "marble.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_marble = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	// notun_texture
 
 
-
-	Cube all_cubes[] = { cube_grass , cube_coffee , cube_pillar, cube_table, cube_tiles, cube_wood, cube_table_top, cube_tent_wall, cube_pool, cube_door, cube_door_2, cube_soil };
-
-
+	Cube all_cubes[] = {
+		cube_floor_texture,
+		cube_wall,
+		cube_resort,
+		cube_pool_chair_body,
+		cube_pillow,
+		cube_mattress,
+		cube_cone,
+		cube_bed_head,
+		cube_road,
+		cube_table_top,
+		cube_tent_wall,
+		cube_table,
+		cube_wood,
+		cube_pool,
+		cube_door,
+		cube_door_2,
+		cube_soil,
+		cube_pool_wall,
+		cube_window,
+		cube_tent_roof,
+		cube_tent_floor,
+		cube_pillar,
+		cube_glass,
+		cube_bed_wood,
+		cube_water,
+		cube_marble,
+	};
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window))
@@ -867,7 +947,7 @@ int main()
 			//tree curve here
 			lightingShader.use();
 			CurveObj tree;
-			tree.ambient = glm::vec4(0.0, 1.0, 0.0, 1.0);
+			tree.ambient = glm::vec4(0.4, 0.2, 0.0, 1.0);
 			tree.diffuse = glm::vec4(0.6, 0.21, 0.05, 1.0);
 			tree.specular = glm::vec4(0.10, 0.21, 0.05, 1.0);
 			tree.translation = glm::vec3(10.5f + dx, 0.1f, 0.8f);
@@ -876,7 +956,7 @@ int main()
 
 			//Picher
 			CurveObj tree_leaf1;
-			tree_leaf1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf1.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf1.translation = glm::vec3(10.5f + dx, 1.0f, 0.9f);
@@ -886,7 +966,7 @@ int main()
 
 			//samner
 			CurveObj tree_leaf2;
-			tree_leaf2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf2.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf2.translation = glm::vec3(10.5f + dx, 1.0f, 0.7f);
@@ -896,7 +976,7 @@ int main()
 
 			//bamer
 			CurveObj tree_leaf3;
-			tree_leaf3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf3.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf3.translation = glm::vec3(10.6f + dx, 1.0f, 0.7f);
@@ -906,7 +986,7 @@ int main()
 
 			//daner
 			CurveObj tree_leaf4;
-			tree_leaf4.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf4.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf4.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf4.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf4.translation = glm::vec3(10.3f + dx, 1.0f, 0.7f);
@@ -922,7 +1002,7 @@ int main()
 			//tree curve here
 			lightingShader.use();
 			CurveObj tree;
-			tree.ambient = glm::vec4(0.0, 1.0, 0.0, 1.0);
+			tree.ambient = glm::vec4(0.4, 0.2, 0.0, 1.0);
 			tree.diffuse = glm::vec4(0.6, 0.21, 0.05, 1.0);
 			tree.specular = glm::vec4(0.10, 0.21, 0.05, 1.0);
 			tree.translation = glm::vec3(10.5f + dx, 0.1f, 0.8f + 2.0f);
@@ -931,7 +1011,7 @@ int main()
 
 			//Picher
 			CurveObj tree_leaf1;
-			tree_leaf1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf1.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf1.translation = glm::vec3(10.5f + dx, 1.0f, 0.9f + 2.0f);
@@ -941,7 +1021,7 @@ int main()
 
 			//samner
 			CurveObj tree_leaf2;
-			tree_leaf2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf2.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf2.translation = glm::vec3(10.5f + dx, 1.0f, 0.7f + 2.0f);
@@ -951,7 +1031,7 @@ int main()
 
 			//bamer
 			CurveObj tree_leaf3;
-			tree_leaf3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf3.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf3.translation = glm::vec3(10.6f + dx, 1.0f, 0.7f + 2.0f);
@@ -961,7 +1041,7 @@ int main()
 
 			//daner
 			CurveObj tree_leaf4;
-			tree_leaf4.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf4.ambient = glm::vec4(0.0, 0.4, 0.0, 1.0);
 			tree_leaf4.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 			tree_leaf4.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 			tree_leaf4.translation = glm::vec3(10.3f + dx, 1.0f, 0.7f + 2.0f);
@@ -975,7 +1055,7 @@ int main()
 		//fountain 
 		lightingShader.use();
 		CurveObj fountain_lomba;
-		fountain_lomba.ambient = glm::vec4(0.0, 1.0, 0.0, 1.0);
+		fountain_lomba.ambient = glm::vec4(0.627, 0.627, 0.627, 1.0);
 		fountain_lomba.diffuse = glm::vec4(0.6, 0.21, 0.05, 1.0);
 		fountain_lomba.specular = glm::vec4(0.10, 0.21, 0.05, 1.0);
 		fountain_lomba.translation = glm::vec3(8.5f, -1.49f, 5.0f);
@@ -985,7 +1065,7 @@ int main()
 		//fountain gol
 		lightingShader.use();
 		CurveObj golla;
-		golla.ambient = glm::vec4(0.6, 0.2, 0.6, 1.0);
+		golla.ambient = glm::vec4(0.0, 0.8, 0.8, 1.0);
 		golla.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		golla.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		golla.translation = glm::vec3(8.5f, 0.38f, 5.0f);
@@ -996,7 +1076,7 @@ int main()
 		//fountain 2nd lomba
 		lightingShader.use();
 		CurveObj choto_lomba;
-		choto_lomba.ambient = glm::vec4(0.1, 0.0, 0.0, 1.0);
+		choto_lomba.ambient = glm::vec4(0.627, 0.627, 0.627, 1.0);
 		choto_lomba.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		choto_lomba.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		choto_lomba.translation = glm::vec3(8.5f, 1.3f, 5.0f);
@@ -1006,17 +1086,17 @@ int main()
 		//fountain gol
 		lightingShader.use();
 		CurveObj golla2;
-		golla2.ambient = glm::vec4(0.02, 0.5, 0.5, 1.0);
+		golla2.ambient = glm::vec4(0.0, 0.8, 0.8, 1.0);
 		golla2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		golla2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		golla2.translation = glm::vec3(8.5f, 1.4f, 5.0f);
 		golla2.scale = glm::vec3(0.2f, 0.7f, 0.2f);
 		golla2.hollowBezier(points, (sizeof(points) / sizeof(points[0])) / 3 - 1, lightingShader);
 
-		//fountain 2nd lomba
+		//fountain 2nd choto lomba
 		lightingShader.use();
 		CurveObj choto_lomba2;
-		choto_lomba2.ambient = glm::vec4(0.1, 0.0, 0.0, 1.0);
+		choto_lomba2.ambient = glm::vec4(0.627, 0.627, 0.627, 1.0);
 		choto_lomba2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		choto_lomba2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		choto_lomba2.translation = glm::vec3(8.5f, 1.8f, 5.0f);
@@ -1027,7 +1107,7 @@ int main()
 		//first traffice light
 		lightingShader.use();
 		CurveObj bulb_box1;
-		bulb_box1.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
+		bulb_box1.ambient = glm::vec4(0.878, 0.878, 0.878, 1.0);
 		bulb_box1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		bulb_box1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		bulb_box1.translation = glm::vec3(0.1f, 3.46f, 13.5f);
@@ -1036,7 +1116,7 @@ int main()
 
 
 		CurveObj lamp1;
-		lamp1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		lamp1.ambient = glm::vec4(0.0, 0.0, 0.8, 1.0);
 		lamp1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		lamp1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		lamp1.translation = glm::vec3(0.1f, 3.2f, 13.5f);
@@ -1047,7 +1127,7 @@ int main()
 		lightingShader.use();
 		//second traffice light
 		CurveObj bulb_box2;
-		bulb_box2.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
+		bulb_box2.ambient = glm::vec4(0.878, 0.878, 0.878, 1.0);
 		bulb_box2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		bulb_box2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		bulb_box2.translation = glm::vec3(11.0f, 3.46f, 13.5f);
@@ -1056,7 +1136,7 @@ int main()
 
 
 		CurveObj lamp2;
-		lamp2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		lamp2.ambient = glm::vec4(0.0, 0.0, 0.8, 1.0);
 		lamp2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		lamp2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		lamp2.translation = glm::vec3(11.0f, 3.2f, 13.5f);
@@ -1067,7 +1147,7 @@ int main()
 		lightingShader.use();
 		//third traffice light
 		CurveObj bulb_box3;
-		bulb_box3.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
+		bulb_box3.ambient = glm::vec4(0.878, 0.878, 0.878, 1.0);
 		bulb_box3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		bulb_box3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		bulb_box3.translation = glm::vec3(23.0f, 3.46f, 13.5f);
@@ -1076,7 +1156,7 @@ int main()
 
 
 		CurveObj lamp3;
-		lamp3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		lamp3.ambient = glm::vec4(0.0, 0.0, 0.8, 1.0);
 		lamp3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		lamp3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		lamp3.translation = glm::vec3(23.0f, 3.2f, 13.5f);
@@ -1087,7 +1167,7 @@ int main()
 		//plate for table one
 		lightingShader.use();
 		CurveObj plate1;
-		plate1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		plate1.ambient = glm::vec4(0.317, 0.317, 0.317, 1.0);
 		plate1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		plate1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		plate1.translation = glm::vec3(3.0, 0.48, 3.6);
@@ -1097,7 +1177,7 @@ int main()
 		//wine glass for table one
 		lightingShader.use();
 		CurveObj wine_glass1;
-		wine_glass1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		wine_glass1.ambient = glm::vec4(0.40, 0.219, 0.8, 0.25);
 		wine_glass1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
 		wine_glass1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
 		wine_glass1.translation = glm::vec3(2.5, 0.32, 3.8);
@@ -1298,7 +1378,7 @@ void Tent(Shader ourShader, glm::mat4 moveMatrix, glm::mat4 forTableChair, glm::
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(9.5f, 0.18f, 9.0f)); // Match tent's width, half depth
 	rotateMatrix = glm::rotate(identityMatrix, glm::radians(-1.5f), glm::vec3(1.0f, 0.0f, 0.0f)); // Tilt the roof
 	model = moveMatrix * translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, model); // Assuming index 9 for the first part of the roof
+	all_cubes[19].drawCubeWithTexture(ourShader, model); // Assuming index 9 for the first part of the roof
 
 	// Roof Part 2
 	//translateMatrix = glm::translate(identityMatrix, glm::vec3(-0.1f, 2.5f, 2.0f)); // Same position as Part 1
@@ -1311,7 +1391,7 @@ void Tent(Shader ourShader, glm::mat4 moveMatrix, glm::mat4 forTableChair, glm::
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(9.0f, 0.2f, 8.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[20].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//chair
 	translateMatrix = isRotate ? glm::translate(identityMatrix, glm::vec3(3.6, 0.6, 9.2)) : glm::translate(identityMatrix, glm::vec3(1.8, 0.6, 3.5)) * forTableChair;
@@ -1328,89 +1408,89 @@ void Tent(Shader ourShader, glm::mat4 moveMatrix, glm::mat4 forTableChair, glm::
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(3.0f, 0.2f, 2.0f)); // Adjust these values as needed
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(2.0f, 0.5f, 3.0f)); // Adjust the size of the bed frame
 	model = translateMatrix * scaleMatrix;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[23].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Mattress
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(3.0f, 0.45f, 2.0f)); // Adjust for the height of the bed frame
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(2.0f, 0.1f, 3.0f)); // Adjust the thickness of the mattress
 	model = translateMatrix * scaleMatrix;
-	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Bed Head
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(3.0f, 0.5f, 2.0f)); // Adjust position for bed head
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(2.0f, 1.0f, 0.2f)); // Adjust size for bed head
 	model = translateMatrix * scaleMatrix;
-	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Pillow
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(3.35f, 0.46f, 2.1f)); // Adjust position for pillow on mattress
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.5f, 0.2f, 0.45f)); // Adjust size for pillow
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[4].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
 	// tent pichoner wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(9.0f, 5.0f, 0.4f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// tent left wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(-0.1f, 0.0f, 0.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.4f, 5.0f, 8.2f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
 	// tent right wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(4.5f, 0.0f, 0.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.4f, 5.0f, 8.2f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//samer first wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(-0.1f, 0.0f, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(3.5f, 5.0f, 0.4f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//samner second wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(2.95f, 0.0f, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(3.5f, 5.0f, 0.4f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//samner choto cube
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(1.5f, 1.5f, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(3.0f, 2.0f, 0.4f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//dorja first part
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(1.65f, 0.0f, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 3.0f, 0.4f));
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(dorja1_rotationY), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = translateMatrix * scaleMatrix * rotationMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[14].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//dorja second part
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(2.3f, 0.0f, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 3.0f, 0.4f));
 	//glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(dorja1_rotationY), glm::vec3(0.0f, 1.0f, 0.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[14].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//Window 1st
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.5f, 0.8f, 4.2f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.4f, 1.8f, 0.1f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[18].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//Window 2nd
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(3.4f, 0.8f, 4.2f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.4f, 1.8f, 0.1f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix* model);
+	all_cubes[18].drawCubeWithTexture(ourShader, moveMatrix* model);
 
 }
 
@@ -1424,49 +1504,49 @@ void Boro_Raste(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube al
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, -0.17f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(48.0f, 6.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//left wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(-0.17f, 0.0, -0.17f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 6.0f, 22.6f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//right wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(23.9f, 0.0, -0.17f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 6.0f, 22.6f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//front first wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(-0.17f, 0.0, 11.1f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(20.0f, 6.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//front second wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.85f, 0.0, 11.1f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(18.5f, 6.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//uporer wall first
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(9.5f, 3.0, 11.1f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 4.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//uporer wall second
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.86f, 3.0, 11.1f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 4.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//uporer choto wall
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(9.5f, 4.5, 11.1f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(11.0f, 2.5f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 }
 
@@ -1480,31 +1560,31 @@ void SwimmingPool(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube 
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(11.0f, 0.0, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(5.0f, 1.0f, 7.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[13].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//left border
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.8f, 0.0, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 1.2f, 7.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[17].drawCubeWithTexture(ourShader, moveMatrix * model);
 
-	//right bordera
+	//right border
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(13.5f, 0.0, 4.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 1.2f, 7.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[17].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//top border
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.8f, 0.0, 3.89f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(5.69f, 1.2f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[17].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//bottom border
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.8f, 0.0, 7.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(5.69f, 1.2f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[17].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
 	//first pool chair
@@ -1512,36 +1592,36 @@ void SwimmingPool(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube 
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.25, 5.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 0.1f, 3.0f)); // Scale to make it flat and wide
 	model = translateMatrix * scaleMatrix;
-	all_cubes[4].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Backrest of the chair
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.25f, 6.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 1.0f, 0.1f)); // Scale to make it tall and thin
 	rotateMatrix = glm::rotate(identityMatrix, glm::radians(30.0f), glm::vec3(1, 0, 0)); // Tilt backrest for curve effect
 	model = translateMatrix * rotateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
 	// Front Left Leg
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.0f, 6.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.1f, 0.5f, 0.1f)); // Small, thin cube
 	model = translateMatrix * scaleMatrix;
-	all_cubes[9].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[23].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Front Right Leg
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(15.10f, 0.0f, 6.5f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[23].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Back Left Leg
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.0f, 5.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[23].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Back Right Leg
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(15.10f, 0.0f, 5.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[23].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
 
 
@@ -1554,7 +1634,7 @@ void Street(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cu
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 11.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(48.0f, 0.1f, 7.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
 
 void TrafficLight(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[])
@@ -1567,13 +1647,13 @@ void TrafficLight(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube 
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 14.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 8.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//uporer rod
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 3.85, 14.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 0.3f, -2.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[21].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	
 	//Second Light 
@@ -1581,26 +1661,26 @@ void TrafficLight(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube 
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(11.0f, 0.0, 14.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 8.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//uporer rod
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(11.0f, 3.85, 14.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 0.3f, -2.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[21].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//Third Light 
 	//lomba rod
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(23.0f, 0.0, 14.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 8.0f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//uporer rod
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(23.0f, 3.85, 14.5f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 0.3f, -2.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[21].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
 
 
@@ -1611,7 +1691,7 @@ void dotdot(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cu
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0, 0.0, 0.0));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(.06, 0.06, .06));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[24].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
 
 //define_koro
@@ -1624,7 +1704,7 @@ void Mati(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cube
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.0f, 0.1f, 0.6f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(8.0f, 0.01f, 5.0f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[11].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[16].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
 
 
@@ -1695,24 +1775,24 @@ void TubeLight(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0, 0.0, 0.0));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(2, 0.06, 0.01));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[25].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0, 0.0, 0.0));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.01, 0.06, 0.08));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[25].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(1.0, 0.0, 0.0));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.01, 0.06, 0.08));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[25].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	//white bulb
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0, 0.0, 0.01));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(2, 0.06, 0.01));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[1].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[22].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
 
 
@@ -1731,7 +1811,7 @@ void Table(Shader ourShader, glm::mat4 moveMatrix, float rotation, bool square, 
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0, 0.0f, 0.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(3.0f, 0.06f, squareZ));
 	model = translateMatrix * rotateYMatrix * scaleMatrix;
-	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[9].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
 	// Leg 1
@@ -1740,7 +1820,7 @@ void Table(Shader ourShader, glm::mat4 moveMatrix, float rotation, bool square, 
 	translateMatrix1 = glm::translate(identityMatrix1, glm::vec3(0.0, -0.5, 0.05));
 	scaleMatrix1 = glm::scale(identityMatrix1, glm::vec3(0.1f, 1.0f, 0.1f));
 	model1 = rotateYMatrix * translateMatrix1 * scaleMatrix1;
-	all_cubes[9].drawCubeWithTexture(ourShader, moveMatrix * model1);
+	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model1);
 
 
 	// Leg 2
@@ -1749,7 +1829,7 @@ void Table(Shader ourShader, glm::mat4 moveMatrix, float rotation, bool square, 
 	translateMatrix2 = glm::translate(identityMatrix2, glm::vec3(.01f, -0.5, squareZ / 2 - 0.1));
 	scaleMatrix2 = glm::scale(identityMatrix2, glm::vec3(0.1f, 1.0f, 0.1f));
 	model2 = rotateYMatrix * translateMatrix2 * scaleMatrix2;
-	all_cubes[9].drawCubeWithTexture(ourShader, moveMatrix * model2);
+	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model2);
 
 
 	// Leg 3
@@ -1757,7 +1837,7 @@ void Table(Shader ourShader, glm::mat4 moveMatrix, float rotation, bool square, 
 	translateMatrix1 = glm::translate(identityMatrix1, glm::vec3(1.5 - 0.05, -0.5, 0.05));
 	scaleMatrix1 = glm::scale(identityMatrix1, glm::vec3(0.1f, 1.0f, 0.1f));
 	model1 = rotateYMatrix * translateMatrix1 * scaleMatrix1;
-	all_cubes[9].drawCubeWithTexture(ourShader, moveMatrix * model1);;
+	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model1);;
 
 
 	// Leg 4
@@ -1765,7 +1845,7 @@ void Table(Shader ourShader, glm::mat4 moveMatrix, float rotation, bool square, 
 	translateMatrix2 = glm::translate(identityMatrix2, glm::vec3(1.5 - .05f, -0.5, squareZ / 2 - 0.1));
 	scaleMatrix2 = glm::scale(identityMatrix2, glm::vec3(0.1f, 1.0f, 0.1f));
 	model2 = rotateYMatrix * translateMatrix2 * scaleMatrix2;
-	all_cubes[9].drawCubeWithTexture(ourShader, moveMatrix * model2);
+	all_cubes[6].drawCubeWithTexture(ourShader, moveMatrix * model2);
 }
 
 void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cubes[])
@@ -1781,7 +1861,7 @@ void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cube
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.11f, 0.0f - fixY + fixYWhole, 0.0f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.75f, 0.07f, 0.7f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[21].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 	// Leg 1
 	glm::mat4 identityMatrix1 = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
@@ -1789,7 +1869,7 @@ void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cube
 	translateMatrix1 = glm::translate(identityMatrix1, glm::vec3(0.13f, -0.32f + fixYWhole, 0.01f));
 	scaleMatrix1 = glm::scale(identityMatrix1, glm::vec3(0.07f, 0.7f * fixLeg, 0.07f));
 	model1 = translateMatrix1 * scaleMatrix1;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model1);
+	all_cubes[22].drawCubeWithTexture(ourShader, moveMatrix * model1);
 
 
 	// Leg 2
@@ -1798,7 +1878,7 @@ void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cube
 	translateMatrix2 = glm::translate(identityMatrix2, glm::vec3(0.13f, -0.32f + fixYWhole, 0.28f));
 	scaleMatrix2 = glm::scale(identityMatrix2, glm::vec3(0.07f, 0.7f * fixLeg, 0.07f));
 	model2 = translateMatrix2 * scaleMatrix2;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model2);
+	all_cubes[22].drawCubeWithTexture(ourShader, moveMatrix * model2);
 
 
 	//// Leg 3
@@ -1806,7 +1886,7 @@ void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cube
 	translateMatrix1 = glm::translate(identityMatrix1, glm::vec3(0.43f, -0.32f + fixYWhole, 0.01f));
 	scaleMatrix1 = glm::scale(identityMatrix1, glm::vec3(0.07f, 0.7f * fixLeg, 0.07f));
 	model1 = translateMatrix1 * scaleMatrix1;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model1);
+	all_cubes[22].drawCubeWithTexture(ourShader, moveMatrix * model1);
 
 
 	// Leg 4
@@ -1814,7 +1894,7 @@ void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cube
 	translateMatrix2 = glm::translate(identityMatrix2, glm::vec3(0.43f, -0.32f + fixYWhole, 0.28f));
 	scaleMatrix2 = glm::scale(identityMatrix2, glm::vec3(0.07f, 0.7f * fixLeg, 0.07f));
 	model2 = translateMatrix2 * scaleMatrix2;
-	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model2);
+	all_cubes[22].drawCubeWithTexture(ourShader, moveMatrix * model2);
 
 
 	//Left up 
