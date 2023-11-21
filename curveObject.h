@@ -19,14 +19,16 @@ const int ntheta = 20;
 
 class CurveObj {
 public:
-
+    vector<float> cntrlPoints;
+    unsigned int fishVAO;
     glm::vec4 ambient;
     glm::vec4 diffuse;
     glm::vec4 specular;
     glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f);
-
-
+    float rotateX = glm::radians(0.0f);
+    float rotateY = glm::radians(0.0f);
+    float rotateZ = glm::radians(0.0f);
     CurveObj(glm::vec4 ambient = glm::vec4(.6f, 0.2f, 0.6f, 1.0f),
         glm::vec4 diffuse = glm::vec4(.6f, 0.2f, 0.6f, 1.0f),
         glm::vec4 specular = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)) {
@@ -206,9 +208,9 @@ public:
         glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 translateMatrix, rotateXMatrix, rotateYMatrix, rotateZMatrix, scaleMatrix, model;
         translateMatrix = glm::translate(identityMatrix, translation);
-        rotateXMatrix = glm::rotate(identityMatrix, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        rotateYMatrix = glm::rotate(identityMatrix, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        rotateZMatrix = glm::rotate(identityMatrix, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        rotateXMatrix = glm::rotate(identityMatrix, rotateX, glm::vec3(1.0f, 0.0f, 0.0f));
+        rotateYMatrix = glm::rotate(identityMatrix, rotateY, glm::vec3(0.0f, 1.0f, 0.0f));
+        rotateZMatrix = glm::rotate(identityMatrix, rotateZ, glm::vec3(0.0f, 0.0f, 1.0f));
         scaleMatrix = glm::scale(identityMatrix, scale);
         model = translateMatrix * rotateXMatrix * rotateYMatrix * rotateZMatrix * scaleMatrix;
         lightingShader.setMat4("model", model);
@@ -229,7 +231,6 @@ public:
 
         return bezierVAO;
     }
-
 };
 
 

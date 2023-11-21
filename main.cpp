@@ -47,9 +47,13 @@ void Pillars(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube cube[
 void Table(Shader ourShader, glm::mat4 moveMatrix, float rotation, bool square, Cube cube[]);
 void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cubes[]);
 void RotateChairY(Shader ourShader, glm::mat4& moveMatrix, float angleDegrees, Cube all_cubes[]);
-//void SwimmingPool(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color);
+void SwimmingPool(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]);
 void Tent(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]);
-void Bed(Shader ourShader, glm::mat4 moveMatrix, Cube all_cubes[]);
+void Street(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]);
+void TrafficLight(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]);
+void Mati(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]);
+
+//notun_function
 
 
 
@@ -79,8 +83,10 @@ float globalBallonStep = 3.0f;
 bool isglobalBallonOn = 1.0f;
 
 
-float globalDotStep = 0.01;
+float globalDotStep = 0.01 * 100;
+float globalDownDotStep = 0.01*100;
 bool isglobalDotOn = 1.0f;
+bool isDownglobalDoon = true;
 
 // camera               8.0   1.0   18.1
 Camera camera(glm::vec3(8.0f, 1.0f, 18.1f));
@@ -277,9 +283,104 @@ float pointLightOn = 0.0;
 float spotLightOn = 0.0;
 
 
+vector<float>Tree = {
+-0.0500, 2.2050, 5.1000,
+-0.1100, 2.2150, 5.1000,
+-0.1850, 2.1950, 5.1000,
+-0.2350, 2.1400, 5.1000,
+-0.2450, 2.0400, 5.1000,
+-0.2550, 1.9400, 5.1000,
+-0.2650, 1.8450, 5.1000,
+-0.2650, 1.7200, 5.1000,
+-0.2650, 1.5700, 5.1000,
+-0.2650, 1.4600, 5.1000,
+-0.2700, 1.3300, 5.1000,
+-0.2650, 1.1650, 5.1000,
+-0.2650, 1.0350, 5.1000,
+-0.2700, 0.8650, 5.1000,
+-0.2850, 0.7200, 5.1000,
+-0.3050, 0.6200, 5.1000,
+-0.3150, 0.4700, 5.1000,
+-0.3200, 0.3050, 5.1000,
+-0.3600, 0.1700, 5.1000,
+-0.3850, 0.1000, 5.1000,
+-0.4100, 0.0200, 5.1000,
+-0.4450, -0.0450, 5.1000,
+-0.4600, -0.0750, 5.1000,
+};
+
+vector<float>leaf = {
+-0.0100, 2.3600, 5.1000,
+-0.0550, 2.3600, 5.1000,
+-0.1550, 2.3800, 5.1000,
+-0.2900, 2.3700, 5.1000,
+-0.3900, 2.3350, 5.1000,
+-0.4150, 2.2350, 5.1000,
+-0.4450, 2.1200, 5.1000,
+-0.5000, 2.0900, 5.1000,
+-0.5700, 2.0800, 5.1000,
+-0.6350, 2.0700, 5.1000,
+-0.7000, 2.0450, 5.1000,
+-0.8000, 2.0100, 5.1000,
+-0.8650, 1.9800, 5.1000,
+-0.9100, 1.9300, 5.1000,
+-0.9200, 1.8900, 5.1000,
+-0.9400, 1.7750, 5.1000,
+-0.9300, 1.5650, 5.1000,
+-0.9150, 1.5200, 5.1000,
+-0.8150, 1.4450, 5.1000,
+-0.7250, 1.4000, 5.1000,
+-0.6000, 1.3650, 5.1000,
+-0.4650, 1.3550, 5.1000,
+-0.3700, 1.3550, 5.1000,
+-0.2800, 1.3550, 5.1000,
+-0.2300, 1.3550, 5.1000,
+-0.1800, 1.3650, 5.1000,
+-0.1250, 1.3750, 5.1000,
+-0.1150, 1.3800, 5.1000,
+-0.0650, 1.3850, 5.1000,
+};
+
+vector<float>body = {
+-0.1300, 2.1900, 5.1000,
+-0.2100, 2.1850, 5.1000,
+-0.2700, 2.1850, 5.1000,
+-0.3450, 2.1500, 5.1000,
+-0.3750, 2.0800, 5.1000,
+-0.3900, 1.9450, 5.1000,
+-0.4300, 1.7800, 5.1000,
+-0.4850, 1.6200, 5.1000,
+-0.5450, 1.4600, 5.1000,
+-0.6150, 1.2700, 5.1000,
+-0.7000, 1.1500, 5.1000,
+-0.7850, 1.0600, 5.1000,
+-0.7450, 0.7400, 5.1000,
+-0.7400, 0.7350, 5.1000,
+-0.8100, 0.8850, 5.1000,
+-0.5550, 0.5800, 5.1000,
+-0.2050, 0.4800, 5.1000,
+-0.1050, 0.4700, 5.1000,
+-0.0350, 0.4650, 5.1000,
+};
+
+
+
 // Textures
 unsigned int texture0, texture1, redBrickTex, texture3, texture4, tilesTex, texture6, texture7, woodtex, glasstex, tabletex, marbeltex, coffeetex;
 
+glm::mat4 transforamtion(float tx, float ty, float tz, float sx, float sy, float sz) {
+	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	glm::mat4 translateMatrix, rotateXMatrix, rotateYMatrix, rotateZMatrix, scaleMatrix, model;
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(tx, ty, tz));
+	rotateXMatrix = glm::rotate(identityMatrix, glm::radians(rotateAngle_X), glm::vec3(1.0f, 0.0f, 0.0f));
+	rotateYMatrix = glm::rotate(identityMatrix, glm::radians(rotateAngle_Y), glm::vec3(0.0f, 1.0f, 0.0f));
+	rotateZMatrix = glm::rotate(identityMatrix, glm::radians(rotateAngle_Z), glm::vec3(0.0f, 0.0f, 1.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(sx, sy, sz));
+	model = translateMatrix * scaleMatrix * rotateXMatrix * rotateYMatrix * rotateZMatrix;
+	return model;
+}
+
+CurveObj* fis, * tre, * lef, * bod, * legg;
 
 
 int main()
@@ -406,6 +507,320 @@ int main()
 -0.0150, 1.8800, 5.1000,
 
 	};
+	GLfloat treeCuve[] = {
+-0.0500, 2.2050, 5.1000,
+-0.1100, 2.2150, 5.1000,
+-0.1850, 2.1950, 5.1000,
+-0.2350, 2.1400, 5.1000,
+-0.2450, 2.0400, 5.1000,
+-0.2550, 1.9400, 5.1000,
+-0.2650, 1.8450, 5.1000,
+-0.2650, 1.7200, 5.1000,
+-0.2650, 1.5700, 5.1000,
+-0.2650, 1.4600, 5.1000,
+-0.2700, 1.3300, 5.1000,
+-0.2650, 1.1650, 5.1000,
+-0.2650, 1.0350, 5.1000,
+-0.2700, 0.8650, 5.1000,
+-0.2850, 0.7200, 5.1000,
+-0.3050, 0.6200, 5.1000,
+-0.3150, 0.4700, 5.1000,
+-0.3200, 0.3050, 5.1000,
+-0.3600, 0.1700, 5.1000,
+-0.3850, 0.1000, 5.1000,
+-0.4100, 0.0200, 5.1000,
+-0.4450, -0.0450, 5.1000,
+-0.4600, -0.0750, 5.1000,
+	};
+
+	GLfloat leafCurve[] = {
+-0.0100, 2.3600, 5.1000,
+-0.0550, 2.3600, 5.1000,
+-0.1550, 2.3800, 5.1000,
+-0.2900, 2.3700, 5.1000,
+-0.3900, 2.3350, 5.1000,
+-0.4150, 2.2350, 5.1000,
+-0.4450, 2.1200, 5.1000,
+-0.5000, 2.0900, 5.1000,
+-0.5700, 2.0800, 5.1000,
+-0.6350, 2.0700, 5.1000,
+-0.7000, 2.0450, 5.1000,
+-0.8000, 2.0100, 5.1000,
+-0.8650, 1.9800, 5.1000,
+-0.9100, 1.9300, 5.1000,
+-0.9200, 1.8900, 5.1000,
+-0.9400, 1.7750, 5.1000,
+-0.9300, 1.5650, 5.1000,
+-0.9150, 1.5200, 5.1000,
+-0.8150, 1.4450, 5.1000,
+-0.7250, 1.4000, 5.1000,
+-0.6000, 1.3650, 5.1000,
+-0.4650, 1.3550, 5.1000,
+-0.3700, 1.3550, 5.1000,
+-0.2800, 1.3550, 5.1000,
+-0.2300, 1.3550, 5.1000,
+-0.1800, 1.3650, 5.1000,
+-0.1250, 1.3750, 5.1000,
+-0.1150, 1.3800, 5.1000,
+-0.0650, 1.3850, 5.1000,
+	};
+
+	GLfloat bodyCurve[] = {
+	-0.1300, 2.1900, 5.1000,
+	-0.2100, 2.1850, 5.1000,
+	-0.2700, 2.1850, 5.1000,
+	-0.3450, 2.1500, 5.1000,
+	-0.3750, 2.0800, 5.1000,
+	-0.3900, 1.9450, 5.1000,
+	-0.4300, 1.7800, 5.1000,
+	-0.4850, 1.6200, 5.1000,
+	-0.5450, 1.4600, 5.1000,
+	-0.6150, 1.2700, 5.1000,
+	-0.7000, 1.1500, 5.1000,
+	-0.7850, 1.0600, 5.1000,
+	-0.7450, 0.7400, 5.1000,
+	-0.7400, 0.7350, 5.1000,
+	-0.8100, 0.8850, 5.1000,
+	-0.5550, 0.5800, 5.1000,
+	-0.2050, 0.4800, 5.1000,
+	-0.1050, 0.4700, 5.1000,
+	-0.0350, 0.4650, 5.1000,
+	};
+	GLfloat legCurve[] = {
+0.0650, 1.8500, 5.1000,
+-0.0500, 1.8650, 5.1000,
+-0.1900, 1.8450, 5.1000,
+-0.2700, 1.8250, 5.1000,
+-0.3050, 1.7350, 5.1000,
+-0.3050, 1.5350, 5.1000,
+-0.2700, 1.3400, 5.1000,
+-0.2500, 1.2000, 5.1000,
+-0.2950, 1.0750, 5.1000,
+-0.2300, 1.0700, 5.1000,
+-0.2550, 0.9300, 5.1000,
+-0.3150, 0.8650, 5.1000,
+-0.2600, 0.7550, 5.1000,
+-0.2350, 0.6900, 5.1000,
+-0.1950, 0.5450, 5.1000,
+-0.1450, 0.4000, 5.1000,
+-0.0750, 0.2950, 5.1000,
+-0.0500, 0.1950, 5.1000,
+-0.0300, 0.1350, 5.1000,
+0.0150, 0.1100, 5.1000,
+0.0550, 0.0900, 5.1000,
+0.0850, 0.0650, 5.1000,
+0.1150, 0.0400, 5.1000,
+0.1500, 0.0200, 5.1000,
+	};
+	GLfloat	lampPoints[] = {
+-0.1400, 1.6450, 5.1000,
+-0.3850, 1.6350, 5.1000,
+-0.5350, 1.2250, 5.1000,
+-0.6600, 0.9500, 5.1000,
+-0.2800, 0.9200, 5.1000,
+	};
+	GLfloat nunu[] = {
+		-2.5, 0.0, 0.0699664838575533,
+-2.4494949494949494, 0.3999795933984513, -0.01012979346400629,
+-2.398989898989899, 0.56276316271451, 0.06817652393044826,
+-2.3484848484848486, 0.6856793029687731, -0.021747911532846678,
+-2.297979797979798, 0.7876197450350676, -0.09549539575694568,
+-2.2474747474747474, 0.8759387227749009, 0.04743609898383214,
+-2.196969696969697, 0.9544251968499168, -0.04409913026434982,
+-2.1464646464646466, 1.025339599228244, 0.07632394072811474,
+-2.095959595959596, 1.0901606111702657, -0.08961961980900318,
+-2.0454545454545454, 1.149919149152138, 0.012245329149518341,
+-1.9949494949494948, 1.2053683951657617, -0.043445414676939346,
+-1.9444444444444444, 1.2570787221094177, 0.07034570963354128,
+-1.893939393939394, 1.3054944986992738, 0.09731821393334256,
+-1.8434343434343434, 1.3509699795798373, 0.04291672972144117,
+-1.7929292929292928, 1.3937929948008356, -0.015954669172370275,
+-1.7424242424242424, 1.4342011595393007, 0.004277923727732572,
+-1.691919191919192, 1.4723933057202907, -0.06147463275240237,
+-1.6414141414141414, 1.5085377537450075, -0.06797037089902819,
+-1.5909090909090908, 1.5427784316797402, 0.015577891806439606,
+-1.5404040404040404, 1.5752394900701356, -0.06833473099233636,
+-1.4898989898989898, 1.6060288415637811, 0.05325084420435655,
+-1.4393939393939394, 1.635240916755399, 0.044570288025213595,
+-1.3888888888888888, 1.6629588385661962, 0.027128407849106723,
+-1.3383838383838385, 1.6892561584134846, 0.0834940589766053,
+-1.2878787878787878, 1.7141982574219334, 0.05241001837548184,
+-1.2373737373737375, 1.7378434882914398, -0.07354005316178824,
+-1.1868686868686869, 1.760244114003391, 0.006210924516653213,
+-1.1363636363636365, 1.7814470856604931, -0.057681454619683686,
+-1.0858585858585859, 1.801494691685491, 0.030974385027055046,
+-1.0353535353535355, 1.8204251032030399, 9.757494092696439e-05,
+-0.9848484848484849, 1.838272834921588, -0.019324831982828222,
+-0.9343434343434345, 1.8550691366867065, 0.059054360913139314,
+-0.8838383838383839, 1.8708423277236728, -0.009861420410962538,
+-0.8333333333333333, 1.8856180831641267, -0.0807029848028975,
+-0.7828282828282829, 1.8994196805726316, -0.04075781720639731,
+-0.7323232323232323, 1.9122682127190678, 0.053001738427881445,
+-0.6818181818181819, 1.9241827716833386, -0.04336963829169165,
+-0.6313131313131313, 1.9351806084570582, 0.03272403635796428,
+-0.5808080808080809, 1.9452772714683997, -0.03888899354798217,
+-0.5303030303030303, 1.9544867268602544, -0.03634047554581024,
+-0.47979797979797967, 1.9628214628672516, -0.013801712784428516,
+-0.4292929292929295, 1.97029258024026, 0.06391018426545217,
+-0.3787878787878789, 1.9769098703394048, -0.021251348730181127,
+-0.3282828282828283, 1.9826818822440884, -0.06695943665450407,
+-0.2777777777777777, 1.9876159799998132, 0.02935896308348579,
+-0.22727272727272751, 1.9917183909278768, -0.09034252154626383,
+-0.1767676767676769, 1.9949942457581429, -0.02901837833116401,
+-0.1262626262626263, 1.9974476112013375, -0.067126138097452,
+-0.07575757575757569, 1.999081515450987, 0.085643494847261,
+-0.025252525252525082, 1.9998979669922556, 0.07994385756209613,
+0.025252525252525082, 1.9998979669922556, -0.0016372238580262266,
+0.07575757575757569, 1.999081515450987, 0.03273292585416937,
+0.1262626262626263, 1.9974476112013375, 0.09435637786127879,
+0.1767676767676769, 1.9949942457581429, 0.09824306173034228,
+0.22727272727272707, 1.9917183909278768, -0.04876313303549267,
+0.2777777777777777, 1.9876159799998132, 0.06593379027580115,
+0.3282828282828283, 1.9826818822440884, 0.022793222918573303,
+0.3787878787878789, 1.9769098703394048, 0.07542295190405618,
+0.42929292929292906, 1.97029258024026, -0.09428952385044514,
+0.47979797979797967, 1.9628214628672516, -0.01190748848224385,
+0.5303030303030303, 1.9544867268602544, 0.08393509772820423,
+0.5808080808080809, 1.9452772714683997, -0.06562537920411565,
+0.631313131313131, 1.9351806084570582, -0.04477653724841486,
+0.6818181818181817, 1.9241827716833386, 0.02462658898510879,
+0.7323232323232323, 1.9122682127190678, 0.02290008792293305,
+0.7828282828282829, 1.8994196805726316, 0.07570163957367101,
+0.8333333333333335, 1.8856180831641267, 0.0385580164043022,
+0.8838383838383836, 1.8708423277236728, -0.01056300071268386,
+0.9343434343434343, 1.8550691366867065, -0.015867473843106092,
+0.9848484848484849, 1.838272834921588, 0.018940527543793967,
+1.0353535353535355, 1.8204251032030399, -0.061011352197926465,
+1.0858585858585856, 1.8014946916854913, 0.09011044151631725,
+1.1363636363636362, 1.7814470856604931, 0.013890507413416284,
+1.1868686868686869, 1.760244114003391, 0.023130074172138457,
+1.2373737373737375, 1.7378434882914398, -0.07820286243908776,
+1.2878787878787876, 1.7141982574219337, -0.08125428190725029,
+1.3383838383838382, 1.6892561584134849, 0.05442155801390133,
+1.3888888888888888, 1.6629588385661962, 0.07140343660813733,
+1.4393939393939394, 1.635240916755399, 0.02802625910802381,
+1.4898989898989896, 1.6060288415637811, -0.007370905200411018,
+1.5404040404040407, 1.5752394900701354, 0.06008804473701365,
+1.5909090909090908, 1.5427784316797402, 0.08433448452398529,
+1.641414141414141, 1.508537753745008, -0.09973198890907756,
+1.691919191919192, 1.4723933057202907, -0.012214384092956679,
+1.7424242424242422, 1.4342011595393012, -0.09689611426236062,
+1.7929292929292933, 1.3937929948008352, 0.0024723225732684873,
+1.8434343434343434, 1.3509699795798373, -0.05742471329858692,
+1.8939393939393936, 1.305494498699274, -0.026070948386197793,
+1.9444444444444446, 1.2570787221094175, 0.006611894106567082,
+1.9949494949494948, 1.2053683951657617, -0.06126187760441815,
+2.045454545454545, 1.1499191491521383, 0.09800642253796907,
+2.095959595959596, 1.0901606111702657, 0.0732431383655873,
+2.146464646464646, 1.0253395992282444, 0.01455251793450485,
+2.1969696969696972, 0.9544251968499161, 0.08662939440429146,
+2.2474747474747474, 0.8759387227749009, 0.0967063970863424,
+2.2979797979797976, 0.7876197450350687, 0.01084944989027481,
+2.3484848484848486, 0.6856793029687731, -0.09462730884670652,
+2.398989898989899, 0.56276316271451, 0.0068581977418784995,
+2.44949494949495, 0.3999795933984502, 0.09793899322674537,
+2.5, 0.0, 0.016733349681673837,
+-2.5, -0.0, 0.0699664838575533,
+-2.4494949494949494, -0.3999795933984513, -0.01012979346400629,
+-2.398989898989899, -0.56276316271451, 0.06817652393044826,
+-2.3484848484848486, -0.6856793029687731, -0.021747911532846678,
+-2.297979797979798, -0.7876197450350676, -0.09549539575694568,
+-2.2474747474747474, -0.8759387227749009, 0.04743609898383214,
+-2.196969696969697, -0.9544251968499168, -0.04409913026434982,
+-2.1464646464646466, -1.025339599228244, 0.07632394072811474,
+-2.095959595959596, -1.0901606111702657, -0.08961961980900318,
+-2.0454545454545454, -1.149919149152138, 0.012245329149518341,
+-1.9949494949494948, -1.2053683951657617, -0.043445414676939346,
+-1.9444444444444444, -1.2570787221094177, 0.07034570963354128,
+-1.893939393939394, -1.3054944986992738, 0.09731821393334256,
+-1.8434343434343434, -1.3509699795798373, 0.04291672972144117,
+-1.7929292929292928, -1.3937929948008356, -0.015954669172370275,
+-1.7424242424242424, -1.4342011595393007, 0.004277923727732572,
+-1.691919191919192, -1.4723933057202907, -0.06147463275240237,
+-1.6414141414141414, -1.5085377537450075, -0.06797037089902819,
+-1.5909090909090908, -1.5427784316797402, 0.015577891806439606,
+-1.5404040404040404, -1.5752394900701356, -0.06833473099233636,
+-1.4898989898989898, -1.6060288415637811, 0.05325084420435655,
+-1.4393939393939394, -1.635240916755399, 0.044570288025213595,
+-1.3888888888888888, -1.6629588385661962, 0.027128407849106723,
+-1.3383838383838385, -1.6892561584134846, 0.0834940589766053,
+-1.2878787878787878, -1.7141982574219334, 0.05241001837548184,
+-1.2373737373737375, -1.7378434882914398, -0.07354005316178824,
+-1.1868686868686869, -1.760244114003391, 0.006210924516653213,
+-1.1363636363636365, -1.7814470856604931, -0.057681454619683686,
+-1.0858585858585859, -1.801494691685491, 0.030974385027055046,
+-1.0353535353535355, -1.8204251032030399, 9.757494092696439e-05,
+-0.9848484848484849, -1.838272834921588, -0.019324831982828222,
+-0.9343434343434345, -1.8550691366867065, 0.059054360913139314,
+-0.8838383838383839, -1.8708423277236728, -0.009861420410962538,
+-0.8333333333333333, -1.8856180831641267, -0.0807029848028975,
+-0.7828282828282829, -1.8994196805726316, -0.04075781720639731,
+-0.7323232323232323, -1.9122682127190678, 0.053001738427881445,
+-0.6818181818181819, -1.9241827716833386, -0.04336963829169165,
+-0.6313131313131313, -1.9351806084570582, 0.03272403635796428,
+-0.5808080808080809, -1.9452772714683997, -0.03888899354798217,
+-0.5303030303030303, -1.9544867268602544, -0.03634047554581024,
+-0.47979797979797967, -1.9628214628672516, -0.013801712784428516,
+-0.4292929292929295, -1.97029258024026, 0.06391018426545217,
+-0.3787878787878789, -1.9769098703394048, -0.021251348730181127,
+-0.3282828282828283, -1.9826818822440884, -0.06695943665450407,
+-0.2777777777777777, -1.9876159799998132, 0.02935896308348579,
+-0.22727272727272751, -1.9917183909278768, -0.09034252154626383,
+-0.1767676767676769, -1.9949942457581429, -0.02901837833116401,
+-0.1262626262626263, -1.9974476112013375, -0.067126138097452,
+-0.07575757575757569, -1.999081515450987, 0.085643494847261,
+-0.025252525252525082, -1.9998979669922556, 0.07994385756209613,
+0.025252525252525082, -1.9998979669922556, -0.0016372238580262266,
+0.07575757575757569, -1.999081515450987, 0.03273292585416937,
+0.1262626262626263, -1.9974476112013375, 0.09435637786127879,
+0.1767676767676769, -1.9949942457581429, 0.09824306173034228,
+0.22727272727272707, -1.9917183909278768, -0.04876313303549267,
+0.2777777777777777, -1.9876159799998132, 0.06593379027580115,
+0.3282828282828283, -1.9826818822440884, 0.022793222918573303,
+0.3787878787878789, -1.9769098703394048, 0.07542295190405618,
+0.42929292929292906, -1.97029258024026, -0.09428952385044514,
+0.47979797979797967, -1.9628214628672516, -0.01190748848224385,
+0.5303030303030303, -1.9544867268602544, 0.08393509772820423,
+0.5808080808080809, -1.9452772714683997, -0.06562537920411565,
+0.631313131313131, -1.9351806084570582, -0.04477653724841486,
+0.6818181818181817, -1.9241827716833386, 0.02462658898510879,
+0.7323232323232323, -1.9122682127190678, 0.02290008792293305,
+0.7828282828282829, -1.8994196805726316, 0.07570163957367101,
+0.8333333333333335, -1.8856180831641267, 0.0385580164043022,
+0.8838383838383836, -1.8708423277236728, -0.01056300071268386,
+0.9343434343434343, -1.8550691366867065, -0.015867473843106092,
+0.9848484848484849, -1.838272834921588, 0.018940527543793967,
+1.0353535353535355, -1.8204251032030399, -0.061011352197926465,
+1.0858585858585856, -1.8014946916854913, 0.09011044151631725,
+1.1363636363636362, -1.7814470856604931, 0.013890507413416284,
+1.1868686868686869, -1.760244114003391, 0.023130074172138457,
+1.2373737373737375, -1.7378434882914398, -0.07820286243908776,
+1.2878787878787876, -1.7141982574219337, -0.08125428190725029,
+1.3383838383838382, -1.6892561584134849, 0.05442155801390133,
+1.3888888888888888, -1.6629588385661962, 0.07140343660813733,
+1.4393939393939394, -1.635240916755399, 0.02802625910802381,
+1.4898989898989896, -1.6060288415637811, -0.007370905200411018,
+1.5404040404040407, -1.5752394900701354, 0.06008804473701365,
+1.5909090909090908, -1.5427784316797402, 0.08433448452398529,
+1.641414141414141, -1.508537753745008, -0.09973198890907756,
+1.691919191919192, -1.4723933057202907, -0.012214384092956679,
+1.7424242424242422, -1.4342011595393012, -0.09689611426236062,
+1.7929292929292933, -1.3937929948008352, 0.0024723225732684873,
+1.8434343434343434, -1.3509699795798373, -0.05742471329858692,
+1.8939393939393936, -1.305494498699274, -0.026070948386197793,
+1.9444444444444446, -1.2570787221094175, 0.006611894106567082,
+1.9949494949494948, -1.2053683951657617, -0.06126187760441815,
+2.045454545454545, -1.1499191491521383, 0.09800642253796907,
+2.095959595959596, -1.0901606111702657, 0.0732431383655873,
+2.146464646464646, -1.0253395992282444, 0.01455251793450485,
+2.1969696969696972, -0.9544251968499161, 0.08662939440429146,
+2.2474747474747474, -0.8759387227749009, 0.0967063970863424,
+2.2979797979797976, -0.7876197450350687, 0.01084944989027481,
+2.3484848484848486, -0.6856793029687731, -0.09462730884670652,
+2.398989898989899, -0.56276316271451, 0.0068581977418784995,
+2.44949494949495, -0.3999795933984502, 0.09793899322674537,
+2.5, -0.0, 0.016733349681673837
+	};
 	unsigned int cubeVAO, cubeVBO, cubeEBO;
 	glGenVertexArrays(1, &cubeVAO);
 	glGenBuffers(1, &cubeVBO);
@@ -530,8 +945,19 @@ int main()
 	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 	Cube cube_door = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
 
+	diffuseMapPath = "door2.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_door_2 = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
 
-	Cube all_cubes[] = { cube_grass , cube_coffee , cube_pillar, cube_table, cube_tiles, cube_wood,cube_table_top, cube_tent_wall, cube_pool, cube_door };
+	diffuseMapPath = "soil.jpg";
+	diffMap = loadTexture(diffuseMapPath.c_str(), GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	Cube cube_soil = Cube(diffMap, specMap, 92.0f, 0.0f, 0.0f, 10.0f, 10.0f);
+
+	//notun_texture
+
+
+
+	Cube all_cubes[] = { cube_grass , cube_coffee , cube_pillar, cube_table, cube_tiles, cube_wood, cube_table_top, cube_tent_wall, cube_pool, cube_door, cube_door_2, cube_soil };
 
 
 	// render loop
@@ -718,27 +1144,303 @@ int main()
 
 		// Starting
 		glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-		glm::mat4 translateMatrix;
+		glm::mat4 translateMatrix, model, rotation, scale, translate;
 		glm::vec4 color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
 
+		float dx = 0.5;
+		for (int i = 0; i < 6; i++) {
 
-		//lightingShader.use();
-		//CurveObj co1;
-		//co1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
-		//co1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
-		//co1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
-		//co1.translation = glm::vec3(4.2, 0.81, -4.0);
-		//co1.scale = glm::vec3(0.2f, .5f, 0.2f);
-		//co1.hollowBezier(points, (sizeof(points) / sizeof(points[0])) / 3 - 1, lightingShader);
-		// 
-		//CurveObj batirNiche;
-		//batirNiche.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
-		//batirNiche.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
-		//batirNiche.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
-		//batirNiche.translation = glm::vec3(4.2, 0.81, -4.0);
-		//batirNiche.scale = glm::vec3(0.2f, .2f, 0.2f);
-		//batirNiche.hollowBezier(reverseCurve, (sizeof(reverseCurve) / sizeof(reverseCurve[0])) / 3 - 1, lightingShader);
+			//tree curve here
+			lightingShader.use();
+			CurveObj tree;
+			tree.ambient = glm::vec4(0.0, 1.0, 0.0, 1.0);
+			tree.diffuse = glm::vec4(0.6, 0.21, 0.05, 1.0);
+			tree.specular = glm::vec4(0.10, 0.21, 0.05, 1.0);
+			tree.translation = glm::vec3(10.5f + dx, 0.1f, 0.8f);
+			tree.scale = glm::vec3(0.3f, 0.56f, 0.3f);
+			tree.hollowBezier(treeCuve, (sizeof(treeCuve) / sizeof(treeCuve[0])) / 3 - 1, lightingShader);
+
+			//Picher
+			CurveObj tree_leaf1;
+			tree_leaf1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf1.translation = glm::vec3(10.5f + dx, 1.0f, 0.9f);
+			tree_leaf1.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf1.rotateX = glm::radians(-30.0f);
+			tree_leaf1.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//samner
+			CurveObj tree_leaf2;
+			tree_leaf2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf2.translation = glm::vec3(10.5f + dx, 1.0f, 0.7f);
+			tree_leaf2.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf2.rotateX = glm::radians(30.0f);
+			tree_leaf2.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//bamer
+			CurveObj tree_leaf3;
+			tree_leaf3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf3.translation = glm::vec3(10.6f + dx, 1.0f, 0.7f);
+			tree_leaf3.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf3.rotateZ = glm::radians(30.0f);
+			tree_leaf3.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//daner
+			CurveObj tree_leaf4;
+			tree_leaf4.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf4.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf4.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf4.translation = glm::vec3(10.3f + dx, 1.0f, 0.7f);
+			tree_leaf4.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf4.rotateZ = glm::radians(-30.0f);
+			tree_leaf4.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			dx += 0.5;
+		}
+		dx = 0.5;
+		for (int i = 0; i < 6; i++) {
+
+			//tree curve here
+			lightingShader.use();
+			CurveObj tree;
+			tree.ambient = glm::vec4(0.0, 1.0, 0.0, 1.0);
+			tree.diffuse = glm::vec4(0.6, 0.21, 0.05, 1.0);
+			tree.specular = glm::vec4(0.10, 0.21, 0.05, 1.0);
+			tree.translation = glm::vec3(10.5f + dx, 0.1f, 0.8f + 0.5f);
+			tree.scale = glm::vec3(0.3f, 0.56f, 0.3f);
+			tree.hollowBezier(treeCuve, (sizeof(treeCuve) / sizeof(treeCuve[0])) / 3 - 1, lightingShader);
+
+			//Picher
+			CurveObj tree_leaf1;
+			tree_leaf1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf1.translation = glm::vec3(10.5f + dx, 1.0f, 0.9f + 0.5f);
+			tree_leaf1.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf1.rotateX = glm::radians(-30.0f);
+			tree_leaf1.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//samner
+			CurveObj tree_leaf2;
+			tree_leaf2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf2.translation = glm::vec3(10.5f + dx, 1.0f, 0.7f + 0.5f);
+			tree_leaf2.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf2.rotateX = glm::radians(30.0f);
+			tree_leaf2.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//bamer
+			CurveObj tree_leaf3;
+			tree_leaf3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf3.translation = glm::vec3(10.6f + dx, 1.0f, 0.7f + 0.5f);
+			tree_leaf3.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf3.rotateZ = glm::radians(30.0f);
+			tree_leaf3.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//daner
+			CurveObj tree_leaf4;
+			tree_leaf4.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf4.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf4.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf4.translation = glm::vec3(10.3f + dx, 1.0f, 0.7f + 0.5f);
+			tree_leaf4.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf4.rotateZ = glm::radians(-30.0f);
+			tree_leaf4.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			dx += 0.5;
+		}
+		dx = 0.5;
+		for (int i = 0; i < 6; i++) {
+
+			//tree curve here
+			lightingShader.use();
+			CurveObj tree;
+			tree.ambient = glm::vec4(0.0, 1.0, 0.0, 1.0);
+			tree.diffuse = glm::vec4(0.6, 0.21, 0.05, 1.0);
+			tree.specular = glm::vec4(0.10, 0.21, 0.05, 1.0);
+			tree.translation = glm::vec3(10.5f + dx, 0.1f, 0.8f + 1.0f);
+			tree.scale = glm::vec3(0.3f, 0.56f, 0.3f);
+			tree.hollowBezier(treeCuve, (sizeof(treeCuve) / sizeof(treeCuve[0])) / 3 - 1, lightingShader);
+
+			//Picher
+			CurveObj tree_leaf1;
+			tree_leaf1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf1.translation = glm::vec3(10.5f + dx, 1.0f, 0.9f + 1.0f);
+			tree_leaf1.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf1.rotateX = glm::radians(-30.0f);
+			tree_leaf1.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//samner
+			CurveObj tree_leaf2;
+			tree_leaf2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf2.translation = glm::vec3(10.5f + dx, 1.0f, 0.7f + 1.0f);
+			tree_leaf2.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf2.rotateX = glm::radians(30.0f);
+			tree_leaf2.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//bamer
+			CurveObj tree_leaf3;
+			tree_leaf3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf3.translation = glm::vec3(10.6f + dx, 1.0f, 0.7f + 1.0f);
+			tree_leaf3.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf3.rotateZ = glm::radians(30.0f);
+			tree_leaf3.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//daner
+			CurveObj tree_leaf4;
+			tree_leaf4.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf4.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf4.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf4.translation = glm::vec3(10.3f + dx, 1.0f, 0.7f + 1.0f);
+			tree_leaf4.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf4.rotateZ = glm::radians(-30.0f);
+			tree_leaf4.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			dx += 0.5;
+		}
+		dx = 0.5;
+		for (int i = 0; i < 6; i++) {
+
+			//tree curve here
+			lightingShader.use();
+			CurveObj tree;
+			tree.ambient = glm::vec4(0.0, 1.0, 0.0, 1.0);
+			tree.diffuse = glm::vec4(0.6, 0.21, 0.05, 1.0);
+			tree.specular = glm::vec4(0.10, 0.21, 0.05, 1.0);
+			tree.translation = glm::vec3(10.5f + dx, 0.1f, 0.8f + 1.5f);
+			tree.scale = glm::vec3(0.3f, 0.56f, 0.3f);
+			tree.hollowBezier(treeCuve, (sizeof(treeCuve) / sizeof(treeCuve[0])) / 3 - 1, lightingShader);
+
+			//Picher
+			CurveObj tree_leaf1;
+			tree_leaf1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf1.translation = glm::vec3(10.5f + dx, 1.0f, 0.9f + 1.5f);
+			tree_leaf1.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf1.rotateX = glm::radians(-30.0f);
+			tree_leaf1.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//samner
+			CurveObj tree_leaf2;
+			tree_leaf2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf2.translation = glm::vec3(10.5f + dx, 1.0f, 0.7f + 1.5f);
+			tree_leaf2.scale = glm::vec3(0.4f, 0.8f, 0.05f);
+			tree_leaf2.rotateX = glm::radians(30.0f);
+			tree_leaf2.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//bamer
+			CurveObj tree_leaf3;
+			tree_leaf3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf3.translation = glm::vec3(10.6f + dx, 1.0f, 0.7f + 1.5f);
+			tree_leaf3.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf3.rotateZ = glm::radians(30.0f);
+			tree_leaf3.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			//daner
+			CurveObj tree_leaf4;
+			tree_leaf4.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+			tree_leaf4.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+			tree_leaf4.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+			tree_leaf4.translation = glm::vec3(10.3f + dx, 1.0f, 0.7f + 1.5f);
+			tree_leaf4.scale = glm::vec3(0.05f, 0.8f, 0.4f);
+			tree_leaf4.rotateZ = glm::radians(-30.0f);
+			tree_leaf4.hollowBezier(bodyCurve, (sizeof(bodyCurve) / sizeof(bodyCurve[0])) / 3 - 1, lightingShader);
+
+			dx += 0.5;
+		}
+
+
+
+		
+
+
+
+		lightingShader.use();
+		//first traffice light
+		CurveObj bulb_box1;
+		bulb_box1.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
+		bulb_box1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+		bulb_box1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+		bulb_box1.translation = glm::vec3(0.1f, 3.46f, 13.5f);
+		bulb_box1.scale = glm::vec3(0.2f, .2f, 0.2f);
+		bulb_box1.hollowBezier(reverseCurve, (sizeof(reverseCurve) / sizeof(reverseCurve[0])) / 3 - 1, lightingShader);
+
+
+		CurveObj lamp1;
+		lamp1.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		lamp1.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+		lamp1.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+		lamp1.translation = glm::vec3(0.1f, 3.2f, 13.5f);
+		lamp1.scale = glm::vec3(0.1f, 0.3f, 0.1f);
+		lamp1.hollowBezier(lampPoints, (sizeof(lampPoints) / sizeof(lampPoints[0])) / 3 - 1, lightingShader);
+
+
+		lightingShader.use();
+		//second traffice light
+		CurveObj bulb_box2;
+		bulb_box2.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
+		bulb_box2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+		bulb_box2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+		bulb_box2.translation = glm::vec3(11.0f, 3.46f, 13.5f);
+		bulb_box2.scale = glm::vec3(0.2f, .2f, 0.2f);
+		bulb_box2.hollowBezier(reverseCurve, (sizeof(reverseCurve) / sizeof(reverseCurve[0])) / 3 - 1, lightingShader);
+
+
+		CurveObj lamp2;
+		lamp2.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		lamp2.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+		lamp2.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+		lamp2.translation = glm::vec3(11.0f, 3.2f, 13.5f);
+		lamp2.scale = glm::vec3(0.1f, 0.3f, 0.1f);
+		lamp2.hollowBezier(lampPoints, (sizeof(lampPoints) / sizeof(lampPoints[0])) / 3 - 1, lightingShader);
+
+
+		lightingShader.use();
+		//third traffice light
+		CurveObj bulb_box3;
+		bulb_box3.ambient = glm::vec4(0.0, 0.0, 0.0, 1.0);
+		bulb_box3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+		bulb_box3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+		bulb_box3.translation = glm::vec3(23.0f, 3.46f, 13.5f);
+		bulb_box3.scale = glm::vec3(0.2f, .2f, 0.2f);
+		bulb_box3.hollowBezier(reverseCurve, (sizeof(reverseCurve) / sizeof(reverseCurve[0])) / 3 - 1, lightingShader);
+
+
+		CurveObj lamp3;
+		lamp3.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		lamp3.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+		lamp3.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+		lamp3.translation = glm::vec3(23.0f, 3.2f, 13.5f);
+		lamp3.scale = glm::vec3(0.1f, 0.3f, 0.1f);
+		lamp3.hollowBezier(lampPoints, (sizeof(lampPoints) / sizeof(lampPoints[0])) / 3 - 1, lightingShader);
+		 
+		/*CurveObj batirNiche;
+		batirNiche.ambient = glm::vec4(0.32, 0.5, 0.8, 1.0);
+		batirNiche.diffuse = glm::vec4(0.32, 0.21, 0.05, 1.0);
+		batirNiche.specular = glm::vec4(0.0, 0.21, 0.05, 1.0);
+		batirNiche.translation = glm::vec3(4.2, 0.81, -4.0);
+		batirNiche.scale = glm::vec3(0.2f, .2f, 0.2f);
+		batirNiche.hollowBezier(reverseCurve, (sizeof(reverseCurve) / sizeof(reverseCurve[0])) / 3 - 1, lightingShader);*/
 		// 
 		//lightingShader.use();
 		//CurveObj co2;
@@ -769,18 +1471,52 @@ int main()
 		//co3.scale = glm::vec3(0.04f  , .2f + 0.1,  0.04);
 		//co3.hollowBezier(points, (sizeof(points) / sizeof(points[0])) / 3 - 1, lightingShader);
 
+		// niche namteche
+		float dy = 0.0; 
+		float poredx = 0.0;
+		float poredx2 = 0.0;
+		float poredy = 0.03; 
+		for (int i = 0; i < 55; i++) {
+			translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75+0.1, 1.19 - dy + globalDotStep, 6.0));
+			color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+			dotdot(lightingShader, translateMatrix, color1, all_cubes);
 
-		/*translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75, 1.19 - globalDotStep, -19.6));
-		color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		dotdot(lightingShader, translateMatrix, color1, all_cubes);
+			if (i <= 50) {
+				translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75 - 0.03, 1.19 - dy + globalDownDotStep, 6.0));
+				color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+				dotdot(lightingShader, translateMatrix, color1, all_cubes);
+				
+				
+			}
+			if (i <= 8) {
+				 
+				if (i <= 2) {
+					translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75 + poredx - 0.03, 1.19 - dy + globalDownDotStep + poredy, 6.0));
+					color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+					dotdot(lightingShader, translateMatrix, color1, all_cubes);
+					
+				}
+				else    {
+					translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75 + 0.1 + poredx2, 1.19 - dy + globalDotStep + poredy - 0.002 - 0.1, 6.0));
+					color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+					dotdot(lightingShader, translateMatrix, color1, all_cubes);
+					 
+				}
+				 
+				poredx += 0.03;
+				poredx2 -= 0.004;
+				poredy += 0.03;
+				
+			}
+				
+			dy += 0.006;
 
-		translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75, 1.19- 0.02 - globalDotStep, -19.6));
-		color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		dotdot(lightingShader, translateMatrix, color1, all_cubes);
+		}
 
-		translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75, 1.19 - 0.03 - globalDotStep, -19.6));
-		color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		dotdot(lightingShader, translateMatrix, color1, all_cubes);*/
+	 
+	     
+		/////////////////////////////////////////////////////////////////////////////////////
+ 
 
 
 		//4.2, 0.81, -16.0
@@ -805,6 +1541,45 @@ int main()
 		translateMatrix = glm::translate(identityMatrix, glm::vec3(0.5f, 0.0f, 0.5f));
 		Tent(lightingShaderWithTexture, translateMatrix, color1, all_cubes);
 
+		//swimming_pool
+		color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+		SwimmingPool(lightingShaderWithTexture, translateMatrix, color1, all_cubes);
+
+
+		//street
+		color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+		Street(lightingShaderWithTexture, translateMatrix, color1, all_cubes);
+
+		//traffic_light
+		color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+		TrafficLight(lightingShaderWithTexture, translateMatrix, color1, all_cubes);
+
+		//mati
+		color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+		translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+		Mati(lightingShaderWithTexture, translateMatrix, color1, all_cubes);
+
+		 
+
+		if (isglobalDotOn) {
+
+			globalDotStep -= 0.0006;
+			globalDownDotStep += 0.0006;
+
+			if (globalDotStep < -0.001 * 25)
+			{
+				globalDotStep = 0.01;
+			}
+			if (globalDownDotStep >  0.001 * 100)
+			{
+				globalDownDotStep = 0.01;
+			}
+
+
+		}
 
 
 		/*	for (int i = 0; i < 3; i++) {
@@ -1275,149 +2050,201 @@ void Tent(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cube
 
 
 	// tent pichoner wall
-	//translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-	//scaleMatrix = glm::scale(identityMatrix, glm::vec3(25.0f, 15.0f, 0.4f));
-	//model = translateMatrix * scaleMatrix;
-	//ourShader.setMat4("model", moveMatrix * model);
-	//glBindTexture(GL_TEXTURE_2D, tentBodyTexture);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(9.0f, 5.0f, 0.4f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	// tent left wall
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(-0.1f, 0.0f, 0.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.4f, 5.0f, 8.2f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
-	//// tent samner wall
-	//translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 12.5f));
-	//scaleMatrix = glm::scale(identityMatrix, glm::vec3(25.0f, 15.0f, 0.4f));
-	//model = translateMatrix * scaleMatrix;
-	//ourShader.setMat4("model", moveMatrix * model);
-	//glBindTexture(GL_TEXTURE_2D, tentBodyTexture);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	// tent right wall
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(4.5f, 0.0f, 0.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.4f, 5.0f, 8.2f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
 
-	//// tent left wall
-	//translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-	//scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.4f, 15.0f, 25.0f));
-	//model = translateMatrix * scaleMatrix;
-	//ourShader.setMat4("model", moveMatrix * model);
-	//glBindTexture(GL_TEXTURE_2D, tentBodyTexture);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	//samer first wall
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(-0.1f, 0.0f, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(3.5f, 5.0f, 0.4f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
 
+	//samner second wall
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(2.95f, 0.0f, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(3.5f, 5.0f, 0.4f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
 
-	//// tent right wall
-	//translateMatrix = glm::translate(identityMatrix, glm::vec3(12.5f, 0.0f, 0.0f));
-	//scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.4f, 15.0f, 25.0f));
-	//model = translateMatrix * scaleMatrix;
-	//ourShader.setMat4("model", moveMatrix * model);
-	//glBindTexture(GL_TEXTURE_2D, tentBodyTexture);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	//samner choto cube
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(1.5f, 1.5f, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(3.0f, 2.0f, 0.4f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
 
+	//dorja first part
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(1.65f, 0.0f, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 3.0f, 0.4f));
+	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(dorja1_rotationY), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = translateMatrix * scaleMatrix * rotationMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
+	//dorja second part
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(2.3f, 0.0f, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 3.0f, 0.4f));
+	//glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(dorja1_rotationY), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
 
+	//Window 1st
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.5f, 0.8f, 4.2f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.4f, 1.8f, 0.1f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix * model);
 
-
-	//Tent floor
-	//translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 0.0f));
-	//scaleMatrix = glm::scale(identityMatrix, glm::vec3(28.0f, 1.0f, 13.0f));
-	//model = translateMatrix * scaleMatrix;
-	//ourShader.setMat4("model", moveMatrix * model);
-	//ourShader.setVec4("material.ambient", color);
-	//ourShader.setVec4("material.diffuse", color);
-	//ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-	//ourShader.setFloat("material.shininess", 32.0f);
-	//glBindTexture(GL_TEXTURE_2D, tentFloorTexture);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-	////Tent Body
-	//translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 0.0f));
-	//scaleMatrix = glm::scale(identityMatrix, glm::vec3(30.0f, 15.0f, 15.0f));
-	//model = translateMatrix * scaleMatrix;
-	//ourShader.setMat4("model", moveMatrix * model);
-	//ourShader.setVec4("material.ambient", color);
-	//ourShader.setVec4("material.diffuse", color);
-	//ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-	//ourShader.setFloat("material.shininess", 32.0f);
-	//glBindTexture(GL_TEXTURE_2D, tentBodyTexture);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-	////Tent Roof
-	//translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 12.5f, 0.0f));
-	//scaleMatrix = glm::scale(identityMatrix, glm::vec3(30.0f, 0.1f, 15.0f));
-	//model = translateMatrix * scaleMatrix;
-	//ourShader.setMat4("model", moveMatrix * model);
-	//ourShader.setVec4("material.ambient", color);
-	//ourShader.setVec4("material.diffuse", color);
-	//ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-	//ourShader.setFloat("material.shininess", 32.0f);
-	//glBindTexture(GL_TEXTURE_2D, tentRoofTexture);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
+	//Window 2nd
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(3.4f, 0.8f, 4.2f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.4f, 1.8f, 0.1f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix* model);
 
 }
 
-//void SwimmingPool(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[])
-//{
-//	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-//	glm::mat4 translateMatrix, scaleMatrix, model;
-//
-//	//water
-//	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.4f, 0.0, 0.4f));
-//	scaleMatrix = glm::scale(identityMatrix, glm::vec3(32.0f, 2.0f, 20.0f));
-//	model = translateMatrix * scaleMatrix;
-//	ourShader.setMat4("model", moveMatrix * model);
-//	ourShader.setVec4("material.ambient", color);
-//	ourShader.setVec4("material.diffuse", color);
-//	ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-//	ourShader.setFloat("material.shininess", 32.0f);
-//	glBindTexture(GL_TEXTURE_2D, swimmingPoolTexture);
-//	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-//
-//	//top border
-//	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, -0.2f));
-//	scaleMatrix = glm::scale(identityMatrix, glm::vec3(32.0f, 3.5f, 1.0f));
-//	model = translateMatrix * scaleMatrix;
-//	ourShader.setMat4("model", moveMatrix * model);
-//	ourShader.setVec4("material.ambient", color);
-//	ourShader.setVec4("material.diffuse", color);
-//	ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-//	ourShader.setFloat("material.shininess", 32.0f);
-//	glBindTexture(GL_TEXTURE_2D, swimmingPoolBorderTexture);
-//	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-//
-//	//bottom border
-//	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 10.0f));
-//	scaleMatrix = glm::scale(identityMatrix, glm::vec3(33.0f, 3.5f, 1.0f));
-//	model = translateMatrix * scaleMatrix;
-//	ourShader.setMat4("model", moveMatrix * model);
-//	ourShader.setVec4("material.ambient", color);
-//	ourShader.setVec4("material.diffuse", color);
-//	ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-//	ourShader.setFloat("material.shininess", 32.0f);
-//	glBindTexture(GL_TEXTURE_2D, swimmingPoolBorderTexture);
-//	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-//
-//	// left border
-//	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 0.0f));
-//	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.0f, 3.5f, 21.0f));
-//	model = translateMatrix * scaleMatrix;
-//	ourShader.setMat4("model", moveMatrix * model);
-//	ourShader.setVec4("material.ambient", color);
-//	ourShader.setVec4("material.diffuse", color);
-//	ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-//	ourShader.setFloat("material.shininess", 32.0f);
-//	glBindTexture(GL_TEXTURE_2D, swimmingPoolBorderTexture);
-//	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-//
-//	//right border
-//	translateMatrix = glm::translate(identityMatrix, glm::vec3(16.0f, 0.0, -0.2f));
-//	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.0f, 3.5f, 21.0f));
-//	model = translateMatrix * scaleMatrix;
-//	ourShader.setMat4("model", moveMatrix * model);
-//	ourShader.setVec4("material.ambient", color);
-//	ourShader.setVec4("material.diffuse", color);
-//	ourShader.setVec4("material.specular", glm::vec4(0.1f, 1.0f, 0.1f, 0.5f));
-//	ourShader.setFloat("material.shininess", 32.0f);
-//	glBindTexture(GL_TEXTURE_2D, swimmingPoolBorderTexture);
-//	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-//
-//
-//}
+void SwimmingPool(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[])
+{
+	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	glm::mat4 translateMatrix, scaleMatrix, model, rotateMatrix;
+
+	//water
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(11.0f, 0.0, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(5.0f, 1.0f, 7.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[8].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//left border
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.8f, 0.0, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 1.2f, 7.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//right bordera
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(13.5f, 0.0, 4.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 1.2f, 7.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//top border
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.8f, 0.0, 3.89f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(5.69f, 1.2f, 0.3f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//bottom border
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.8f, 0.0, 7.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(5.69f, 1.2f, 0.3f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+
+	//first pool chair
+	// Base of the chair
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.25, 5.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 0.1f, 3.0f)); // Scale to make it flat and wide
+	model = translateMatrix * scaleMatrix;
+	all_cubes[4].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	// Backrest of the chair
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.25f, 6.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(1.3f, 1.0f, 0.1f)); // Scale to make it tall and thin
+	rotateMatrix = glm::rotate(identityMatrix, glm::radians(30.0f), glm::vec3(1, 0, 0)); // Tilt backrest for curve effect
+	model = translateMatrix * rotateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+
+	// Front Left Leg
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.0f, 6.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.1f, 0.5f, 0.1f)); // Small, thin cube
+	model = translateMatrix * scaleMatrix;
+	all_cubes[9].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	// Front Right Leg
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(15.10f, 0.0f, 6.5f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	// Back Left Leg
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(14.5f, 0.0f, 5.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	// Back Right Leg
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(15.10f, 0.0f, 5.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[10].drawCubeWithTexture(ourShader, moveMatrix * model);
+}
+
+
+void Street(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[])
+{
+	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	glm::mat4 translateMatrix, scaleMatrix, model;
+
+	//First road
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 11.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(48.0f, 0.1f, 7.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+}
+
+void TrafficLight(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[])
+{
+	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	glm::mat4 translateMatrix, scaleMatrix, model;
+
+	//First light
+	//lomba rod
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 14.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 8.0f, 0.3f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//uporer rod
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 3.85, 14.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 0.3f, -2.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	
+	//Second Light 
+	//lomba rod
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(11.0f, 0.0, 14.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 8.0f, 0.3f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//uporer rod
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(11.0f, 3.85, 14.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 0.3f, -2.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//Third Light 
+	//lomba rod
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(23.0f, 0.0, 14.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 8.0f, 0.3f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
+
+	//uporer rod
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(23.0f, 3.85, 14.5f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.3f, 0.3f, -2.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[3].drawCubeWithTexture(ourShader, moveMatrix * model);
+}
 
 
 void dotdot(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]) {
@@ -1491,6 +2318,19 @@ void Baloon(Shader ourShader, Shader sphereShader, glm::mat4 moveMatrix, glm::ve
 
 }
 
+//define_koro
+void Mati(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]) {
+
+	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	glm::mat4 translateMatrix, scaleMatrix, model;
+
+	//mati
+	translateMatrix = glm::translate(identityMatrix, glm::vec3(10.0f, 0.1f, 0.6f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(8.0f, 0.01f, 5.0f));
+	model = translateMatrix * scaleMatrix;
+	all_cubes[11].drawCubeWithTexture(ourShader, moveMatrix * model);
+}
+
 
 void RotateChairY(Shader ourShader, glm::mat4& moveMatrix, float angleDegrees, Cube all_cubes[])
 {
@@ -1512,15 +2352,14 @@ void Grasses(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_c
 
 	//Grass
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 0.0, 0.0f));
-	scaleMatrix = glm::scale(identityMatrix, glm::vec3(66.0f, 0.1f, 20.0f));
+	scaleMatrix = glm::scale(identityMatrix, glm::vec3(48.0f, 0.1f, 22.0f));
 	model = translateMatrix * scaleMatrix;
 	all_cubes[0].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 
 }
+
 void CoffeMachine(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]) {
-
-
 	// left 
 	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 	glm::mat4 translateMatrix, scaleMatrix, model;
@@ -1529,8 +2368,7 @@ void CoffeMachine(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube 
 	model = translateMatrix * scaleMatrix;
 	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
 
-	//main part 
-
+	//main part
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(0.0f, 1 + 0.05 + 0.75 / 2 / 2, -18.0f)); // grass 20 e sesh hoiche
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(0.6, 0.75, 1));
 	model = translateMatrix * scaleMatrix;
@@ -1548,6 +2386,7 @@ void CoffeMachine(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube 
 	model = translateMatrix * scaleMatrix;
 	all_cubes[2].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
+
 void CafeShop(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube all_cubes[]) {
 
 	glm::mat4 identityMatrix = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
@@ -2254,8 +3093,6 @@ void Chair(Shader ourShader, glm::mat4 moveMatrix, float rotation, Cube all_cube
 	model = translateMatrix * scaleMatrix;
 	all_cubes[7].drawCubeWithTexture(ourShader, moveMatrix * model);
 }
-
-
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
