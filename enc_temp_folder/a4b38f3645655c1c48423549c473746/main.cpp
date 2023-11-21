@@ -1466,7 +1466,7 @@ void Boro_Raste(Shader ourShader, glm::mat4 moveMatrix, glm::vec4 color, Cube al
 	translateMatrix = glm::translate(identityMatrix, glm::vec3(9.5f, 4.5, 11.1f));
 	scaleMatrix = glm::scale(identityMatrix, glm::vec3(11.0f, 2.5f, 0.3f));
 	model = translateMatrix * scaleMatrix;
-	all_cubes[5].drawCubeWithTexture(ourShader, moveMatrix * model);
+	all_cubes[12].drawCubeWithTexture(ourShader, moveMatrix * model);
 
 }
 
