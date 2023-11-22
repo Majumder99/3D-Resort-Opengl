@@ -292,7 +292,7 @@ int main()
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Cafeteria - Pial 1807040", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Resort - Sourav 1807099", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -1191,15 +1191,15 @@ int main()
 		float poredy = 0.01; 
 		float middleDx = 0.02;
 		for (int i = 0; i < 100; i++) {
-			if (i <= 6) {
+			if (i <= 5) {
 
-				if (i <= 2) {
+				if (i <= 3) {
 					translateMatrix = glm::translate(identityMatrix, glm::vec3(8.5 + poredx - 0.03, 2.10 - dy + globalDownDotStep + poredy - 0.001, 5.0));
 					color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 					dotdot(lightingShader, translateMatrix, color1, all_cubes);
 
 				}
-				else if (i == 3) {
+				else {
 					translateMatrix = glm::translate(identityMatrix, glm::vec3(8.5 + poredx2, 2.19 - dy + globalDotStep + poredy - 0.002 - 0.1, 5.0));
 					color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 					dotdot(lightingShader, translateMatrix, color1, all_cubes);
@@ -1213,18 +1213,13 @@ int main()
 			}
 			else if (i <= 25)
 			{
-				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.55, 2.12 - dy + globalDotStep - 0.001, 5.0));
+				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.7, 2.12 - dy + globalDotStep - 0.001, 5.0));
 				color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				dotdot(lightingShader, translateMatrix, color1, all_cubes);
 
 			}
-			else if (i >= 26 && i <= 39) {
-				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.301 + middleDx, 1.945, 5.0));
-				color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-				dotdot(lightingShader, translateMatrix, color1, all_cubes);
-
-			}
-			else if (i == 40) {
+			
+			/*else if (i == 40) {
 				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.715, 1.93, 5.0));
 				color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				dotdot(lightingShader, translateMatrix, color1, all_cubes);
@@ -1234,7 +1229,7 @@ int main()
 				translateMatrix = glm::translate(identityMatrix, glm::vec3(8.715, 2.3 - dy + globalDotStep, 5.0));
 				color1 = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				dotdot(lightingShader, translateMatrix, color1, all_cubes);
-			}
+			}*/
 			
 			/*if (i <= 50) {
 				translateMatrix = glm::translate(identityMatrix, glm::vec3(4.0 + 0.75 - 0.03, 1.19 - dy + globalDownDotStep, 6.0));
@@ -1245,7 +1240,7 @@ int main()
 			}*/
 			
 				
-			dy += 0.01;
+			dy += 0.04;
 			middleDx += 0.01;
 		}
 	 
